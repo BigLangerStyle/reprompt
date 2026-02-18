@@ -1,0 +1,164 @@
+/* styles.css — Reprompt tray styles
+ *
+ * Design goals:
+ *   - Subtle, not distracting
+ *   - Respects ChatGPT dark/light theme via system preference + class detection
+ *   - No layout interference with existing composer elements
+ */
+
+/* ─── CSS Variables (light defaults, dark override below) ──────────────────── */
+
+:root {
+  --rp-bg:          rgba(247, 247, 248, 0.95);
+  --rp-border:      rgba(0, 0, 0, 0.08);
+  --rp-btn-bg:      #ffffff;
+  --rp-btn-border:  rgba(0, 0, 0, 0.12);
+  --rp-btn-text:    #374151;
+  --rp-btn-hover:   #f3f4f6;
+  --rp-btn-active:  #e5e7eb;
+  --rp-pill-text:   #6b7280;
+  --rp-pill-hover:  rgba(0, 0, 0, 0.05);
+  --rp-pinned:      #dbeafe;
+  --rp-shadow:      0 -2px 8px rgba(0, 0, 0, 0.06);
+  --rp-radius:      10px;
+  --rp-btn-radius:  6px;
+  --rp-font:        -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Dark theme — matches ChatGPT's dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --rp-bg:          rgba(52, 53, 65, 0.97);
+    --rp-border:      rgba(255, 255, 255, 0.08);
+    --rp-btn-bg:      rgba(68, 70, 84, 0.8);
+    --rp-btn-border:  rgba(255, 255, 255, 0.1);
+    --rp-btn-text:    #d1d5db;
+    --rp-btn-hover:   rgba(86, 88, 105, 0.9);
+    --rp-btn-active:  rgba(100, 102, 120, 0.9);
+    --rp-pill-text:   #9ca3af;
+    --rp-pill-hover:  rgba(255, 255, 255, 0.05);
+    --rp-pinned:      rgba(37, 99, 235, 0.25);
+    --rp-shadow:      0 -2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ─── Tray Container ────────────────────────────────────────────────────────── */
+
+#reprompt-tray {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--rp-bg);
+  border-top: 1px solid var(--rp-border);
+  border-radius: var(--rp-radius) var(--rp-radius) 0 0;
+  box-shadow: var(--rp-shadow);
+  font-family: var(--rp-font);
+  overflow: hidden;
+  transition: max-height 0.18s ease, padding 0.18s ease;
+  /* Ensure tray doesn't affect textarea width */
+  max-width: 100%;
+}
+
+/* ─── Collapsed State ───────────────────────────────────────────────────────── */
+
+#reprompt-tray.reprompt-collapsed {
+  max-height: 32px;
+}
+
+#reprompt-tray.reprompt-collapsed .reprompt-row {
+  display: none;
+}
+
+/* ─── Expanded State ────────────────────────────────────────────────────────── */
+
+#reprompt-tray.reprompt-expanded {
+  max-height: 56px;
+  padding: 6px 8px;
+}
+
+#reprompt-tray.reprompt-expanded .reprompt-pill {
+  display: none;
+}
+
+/* ─── Pill (collapsed trigger) ──────────────────────────────────────────────── */
+
+.reprompt-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--rp-pill-text);
+  font-size: 12px;
+  font-family: var(--rp-font);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background 0.12s ease;
+  width: 100%;
+  text-align: left;
+  border-radius: var(--rp-radius) var(--rp-radius) 0 0;
+}
+
+.reprompt-pill:hover {
+  background: var(--rp-pill-hover);
+}
+
+/* ─── Button Row ────────────────────────────────────────────────────────────── */
+
+.reprompt-row {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 0 2px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.reprompt-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Reply Buttons ─────────────────────────────────────────────────────────── */
+
+.reprompt-btn {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 5px 11px;
+  background: var(--rp-btn-bg);
+  border: 1px solid var(--rp-btn-border);
+  border-radius: var(--rp-btn-radius);
+  color: var(--rp-btn-text);
+  font-size: 12px;
+  font-family: var(--rp-font);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.reprompt-btn:hover {
+  background: var(--rp-btn-hover);
+}
+
+.reprompt-btn:active {
+  background: var(--rp-btn-active);
+}
+
+.reprompt-btn.reprompt-pinned {
+  background: var(--rp-pinned);
+  border-color: transparent;
+}
+
+/* ─── Focus styles (keyboard accessibility) ─────────────────────────────────── */
+
+.reprompt-btn:focus-visible,
+.reprompt-pill:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
