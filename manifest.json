@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Reprompt",
   "version": "0.1.0",
-  "description": "Heuristic-driven quick reply tray for ChatGPT. No AI calls. Fully local.",
+  "description": "Heuristic-driven quick reply tray for ChatGPT. Instant follow-up suggestions, right above the composer.",
   "permissions": [
     "storage"
   ],

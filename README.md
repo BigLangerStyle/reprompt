@@ -1,6 +1,7 @@
 # ⚡ Reprompt
 
-Heuristic-driven quick reply tray for ChatGPT. No AI calls. Fully local.
+**Heuristic-driven quick reply tray for ChatGPT.**
+Instant follow-up suggestions, right above the composer.
 
 ---
 
@@ -8,7 +9,7 @@ Heuristic-driven quick reply tray for ChatGPT. No AI calls. Fully local.
 
 Reprompt injects a small tray above the ChatGPT composer with 4–6 context-aware reply buttons. Click a button to insert the text. Shift+Click to insert and send immediately.
 
-Buttons are selected by a lightweight keyword heuristic — no API calls, no external requests, no accounts.
+The tray reads the conversation and selects the most relevant set of follow-ups — clarifications, edits, code requests, comparisons — so the next move is always one click away.
 
 ---
 
@@ -39,24 +40,17 @@ The tray also expands automatically when the textarea receives focus or when a n
 
 ## Template Packs
 
-The heuristic engine selects one of five packs based on the conversation:
+Reprompt selects one of five packs based on the conversation context:
 
 | Pack | Triggered by |
 |---|---|
-| **General** | Default fallback |
+| **General** | Default |
 | **Coding** | Code blocks, language keywords, error terms |
 | **Docs** | Step/instruction/guide language |
 | **Decision** | "Should I", "which", "pros/cons", comparison language |
 | **Editing** | Grammar, tone, rewrite, concise language |
 
----
-
-## Privacy
-
-- Zero network requests
-- Zero telemetry
-- All data stored locally via `chrome.storage.local`
-- No accounts, no API keys
+Most-used buttons surface toward the front over time.
 
 ---
 

@@ -6,8 +6,6 @@
 
 ### DO NOT increment version without explicit user instruction
 
-All features currently listed in `PROJECT_LEDGER.md` under **"Still To Do (v0.1.0)"** are part of the **v0.1.0 MVP release**.
-
 **Do NOT create v0.1.1, v0.2.0, etc. unless the user explicitly says to move to the next version.**
 
 ### When Adding New Features
@@ -15,7 +13,6 @@ All features currently listed in `PROJECT_LEDGER.md` under **"Still To Do (v0.1.
 #### ✅ CORRECT Approach:
 - Keep version at **0.1.0** in `manifest.json`
 - Add feature to existing v0.1.0 sections in CHANGELOG.md and README.md
-- Mark feature as complete in PROJECT_LEDGER.md under v0.1.0
 - Keep the same date or update to current work date
 
 #### ❌ WRONG Approach:
@@ -43,9 +40,6 @@ All features currently listed in `PROJECT_LEDGER.md` under **"Still To Do (v0.1.
 - [ ] Shift+Click send behavior verification
 
 **Explicit Non-Goals for v0.1.0:**
-- No LLM calls
-- No remote servers
-- No telemetry
 - No Firefox support
 - No per-pack customization UI
 
@@ -55,17 +49,13 @@ All features currently listed in `PROJECT_LEDGER.md` under **"Still To Do (v0.1.
 
 **CRITICAL: Always update documentation when completing features**
 
-After implementing any new feature or fixing bugs, you MUST update associated documentation:
+After implementing any new feature or fixing bugs, you MUST update:
 
-### Required Updates:
 1. **CHANGELOG.md** — Add feature/fix details under the current version section (v0.1.0)
-2. **README.md** — Add to the current version's feature list in the version history
-3. **PROJECT_LEDGER.md** — Mark feature as complete, move from "Still To Do" to "Completed"
+2. **README.md** — Update version history if user-facing changes
 
 ### Workflow:
-- When presenting completed work, ALWAYS include both:
-  - Code files (source files)
-  - Documentation files (CHANGELOG.md, README.md, PROJECT_LEDGER.md)
+- When presenting completed work, ALWAYS include both code files and documentation files
 - Never present code changes without corresponding documentation updates
 
 ### Example:
@@ -76,7 +66,6 @@ Response after completion:
 1. Present content.js (updated code)
 2. Present CHANGELOG.md (fix added to v0.1.0 section)
 3. Present README.md (updated if user-facing)
-4. Present PROJECT_LEDGER.md (marked as complete in v0.1.0)
 ```
 
 ---
@@ -145,7 +134,6 @@ reprompt/
 ├── project-preferences.md
 └── claude_workflow.md
 
-PROJECT_LEDGER.md
 CHANGELOG.md
 README.md
 ```
@@ -181,9 +169,8 @@ The only reliable way to insert into ChatGPT's controlled React textarea:
 
 ### Files to Keep in Sync:
 1. `manifest.json` — "version" field
-2. `PROJECT_LEDGER.md` — "Version:" field
-3. `CHANGELOG.md` — Latest version section header
-4. `README.md` — Latest version in history section
+2. `CHANGELOG.md` — Latest version section header
+3. `README.md` — Latest version in history section
 
 **REMINDER: Do not update version unless user explicitly says to release a new version!**
 

@@ -102,7 +102,7 @@ The release chat produces a task description as a **downloadable markdown file**
 
 This is the **feature implementation** chat for Reprompt.
 
-**Project:** Chrome extension (Manifest V3) that injects a heuristic-driven quick reply tray above the ChatGPT composer. No LLM calls, no external network — fully local. No build step; load unpacked from repo root.
+**Project:** Chrome extension (Manifest V3) that injects a heuristic-driven quick reply tray above the ChatGPT composer. No build step; load unpacked from repo root.
 
 **Workflow rules:** `.agent/claude_workflow.md` (in uploaded files — read it first).
 
@@ -131,29 +131,27 @@ Background and why this is needed
 ### Step 2: Files to Upload
 
 **Always include:**
-1. `PROJECT_LEDGER.md`
-2. `CHANGELOG.md`
-3. `README.md` (if updating user-facing docs)
+1. `CHANGELOG.md`
+2. `README.md` (if updating user-facing docs)
 
 **Source files being modified:**
-4. Relevant `.js` files
-5. `styles.css` (if UI changes)
-6. `manifest.json` (only if changing metadata/version)
+3. Relevant `.js` files
+4. `styles.css` (if UI changes)
+5. `manifest.json` (only if changing metadata/version)
 
 **Example:**
 ```
 Files to upload:
-1. PROJECT_LEDGER.md
-2. CHANGELOG.md
-3. content.js
-4. utils/dom.js
+1. CHANGELOG.md
+2. content.js
+3. utils/dom.js
 ```
 
 ### Step 3: Package as Zip
 
 ```powershell
 cd "C:\Users\<you>\Documents\Git\reprompt"
-Compress-Archive -Path PROJECT_LEDGER.md, CHANGELOG.md, content.js, utils/dom.js -DestinationPath task_selector_fallback_files.zip -Force
+Compress-Archive -Path CHANGELOG.md, content.js, utils/dom.js -DestinationPath task_selector_fallback_files.zip -Force
 ```
 
 **Rules:**
@@ -180,7 +178,6 @@ Brief description of what changed
 - content.js
 - utils/dom.js
 - CHANGELOG.md
-- PROJECT_LEDGER.md
 
 ## Commit Message
 fix: add selector fallbacks for textarea detection
@@ -206,16 +203,15 @@ git commit -m "fix: add selector fallbacks for textarea detection
 
 ## Documentation Updated
 - CHANGELOG.md: Added to v0.1.0 section
-- PROJECT_LEDGER.md: Marked as complete
 ```
 
 ---
 
 ## Version Control Integration
 
-- Features are added to the **current version** section
+- Features are added to the **current version** section in CHANGELOG.md and README.md
 - Do NOT create new version entries unless user says "release new version"
-- Keep `manifest.json` and `PROJECT_LEDGER.md` in sync
+- Keep `manifest.json` version in sync with CHANGELOG.md
 
 ---
 
@@ -254,7 +250,6 @@ reprompt/
 ├── project-preferences.md
 └── claude_workflow.md
 
-PROJECT_LEDGER.md
 CHANGELOG.md
 README.md
 ```
@@ -279,7 +274,6 @@ README.md
 **Files committed:**
 - utils/dom.js
 - CHANGELOG.md
-- PROJECT_LEDGER.md
 
 **Status:** Ready to merge into release/v0.1.0
 ```
@@ -293,7 +287,7 @@ README.md
 
 This is the **[release orchestration | feature implementation]** chat for Reprompt.
 
-**Project:** Chrome extension (Manifest V3) that injects a heuristic-driven quick reply tray above the ChatGPT composer. No LLM calls, no external network — fully local. No build step; load unpacked from repo root.
+**Project:** Chrome extension (Manifest V3) that injects a heuristic-driven quick reply tray above the ChatGPT composer. No build step; load unpacked from repo root.
 
 **Workflow rules:** `.agent/claude_workflow.md` (in uploaded files — read it first).
 
