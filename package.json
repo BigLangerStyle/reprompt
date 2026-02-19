@@ -4,9 +4,15 @@
   "description": "Heuristic-driven quick reply tray for ChatGPT.",
   "private": true,
   "scripts": {
-    "build:chrome":  "node scripts/build-chrome.js",
-    "build:firefox": "node scripts/build-firefox.js",
-    "build:all":     "node scripts/build-chrome.js && node scripts/build-firefox.js"
+    "build:chrome":   "node scripts/build-chrome.js",
+    "build:firefox":  "node scripts/build-firefox.js",
+    "build:all":      "node scripts/build-chrome.js && node scripts/build-firefox.js",
+    "dev:chrome":     "node scripts/watch-chrome.js",
+    "dev:firefox":    "node scripts/watch-firefox.js"
+  },
+  "devDependencies": {
+    "chokidar": "^3.6.0",
+    "web-ext": "^8.3.0"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -103,6 +103,9 @@ reprompt/
 npm run build:chrome    # → build/chrome/
 npm run build:firefox   # → build/firefox/
 npm run build:all       # both
+
+npm run dev:chrome      # watch + rebuild on save (reload manually in chrome://extensions)
+npm run dev:firefox     # watch + rebuild + auto-reload via web-ext
 ```
 
 Agent workflow and preferences are in `.agent/`.

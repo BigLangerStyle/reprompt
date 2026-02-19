@@ -163,6 +163,8 @@ reprompt/
 
 ### Build Process
 - `npm run build:chrome` — copies src/ + chrome/manifest.json → build/chrome/
+- `npm run dev:chrome` — watches src/ and rebuilds on save (reload manually in chrome://extensions)
+- `npm run dev:firefox` — watches src/, rebuilds, and auto-reloads via web-ext
 - `npm run build:firefox` — copies src/ + firefox/manifest.json → build/firefox/, transforms chrome.* → browser.*
 - Always present source files from `src/`, `chrome/`, `firefox/` — **never from `build/`**
 
