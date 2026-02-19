@@ -26,13 +26,13 @@
 - [x] Monorepo structure (src/, chrome/, firefox/, scripts/)
 - [x] Chrome Manifest V3 + Firefox Manifest V2
 - [x] Build scripts (build-chrome.js, build-firefox.js)
-- [x] `src/templates.js` — 5 packs × 6 templates
-- [x] `src/utils/heuristics.js` — keyword scoring engine
-- [x] `src/utils/dom.js` — React-compatible textarea detection + insert logic
-- [x] `src/utils/storage.js` — usage counts, pinned templates, last pack
-- [x] `src/background.js` — minimal service worker
-- [x] `src/content.js` — tray injection, MutationObserver, keyboard shortcuts
-- [x] `src/styles.css` — dark/light theme, collapsed/expanded states
+- [x] `src/templates.js` - 5 packs × 6 templates
+- [x] `src/utils/heuristics.js` - keyword scoring engine
+- [x] `src/utils/dom.js` - React-compatible textarea detection + insert logic
+- [x] `src/utils/storage.js` - usage counts, pinned templates, last pack
+- [x] `src/background.js` - minimal service worker
+- [x] `src/content.js` - tray injection, MutationObserver, keyboard shortcuts
+- [x] `src/styles.css` - dark/light theme, collapsed/expanded states
 
 **Still To Do (ALL PART OF v0.1.0):**
 - [ ] Real icons (16px, 48px, 128px)
@@ -52,8 +52,8 @@
 
 After implementing any new feature or fixing bugs, you MUST update:
 
-1. **CHANGELOG.md** — Add feature/fix details under the current version section (v0.1.0)
-2. **README.md** — Update version history if user-facing changes
+1. **CHANGELOG.md** - Add feature/fix details under the current version section (v0.1.0)
+2. **README.md** - Update version history if user-facing changes
 
 ### Workflow:
 - When presenting completed work, ALWAYS include both code files and documentation files
@@ -107,7 +107,7 @@ unix2dos <filename> 2>/dev/null || sed -i 's/$/\r/' <filename>
 - Provide diffs, snippets, or partial edits
 - Ask the user to manually apply changes
 - Silently truncate large files
-- Present files from `build/` — always present source files
+- Present files from `build/` - always present source files
 
 ### ✅ DO:
 - Present each file individually using `present_files`, one at a time
@@ -145,7 +145,7 @@ reprompt/
 │   ├── icon16.png
 │   ├── icon48.png
 │   └── icon128.png
-├── build/                     (gitignored — never upload or present)
+├── build/                     (gitignored - never upload or present)
 │
 ├── .agent/
 │   ├── project-preferences.md
@@ -162,17 +162,17 @@ reprompt/
 ## Important Technical Notes
 
 ### Build Process
-- `npm run build:chrome` — copies src/ + chrome/manifest.json → build/chrome/
-- `npm run dev:chrome` — watches src/ and rebuilds on save (reload manually in chrome://extensions)
-- `npm run dev:firefox` — watches src/, rebuilds, and auto-reloads via web-ext
-- `npm run build:firefox` — copies src/ + firefox/manifest.json → build/firefox/, transforms chrome.* → browser.*
-- Always present source files from `src/`, `chrome/`, `firefox/` — **never from `build/`**
+- `npm run build:chrome` - copies src/ + chrome/manifest.json → build/chrome/
+- `npm run dev:chrome` - watches src/ and rebuilds on save (reload manually in chrome://extensions)
+- `npm run dev:firefox` - watches src/, rebuilds, and auto-reloads via web-ext
+- `npm run build:firefox` - copies src/ + firefox/manifest.json → build/firefox/, transforms chrome.* → browser.*
+- Always present source files from `src/`, `chrome/`, `firefox/` - **never from `build/`**
 
 ### React Textarea Insert
 The only reliable way to insert into ChatGPT's controlled React textarea:
 1. Use `Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set.call(el, text)`
 2. Dispatch a native `input` event with `{ bubbles: true }`
-3. Do NOT use direct `.value =` assignment — React will ignore it
+3. Do NOT use direct `.value =` assignment - React will ignore it
 
 ### ChatGPT DOM Resilience
 - ChatGPT ships UI changes without warning
@@ -181,13 +181,13 @@ The only reliable way to insert into ChatGPT's controlled React textarea:
 - Re-attach tray if removed from DOM
 
 ### Heuristic Engine Philosophy
-- High-confidence signals only — better to show general pack than wrong pack
+- High-confidence signals only - better to show general pack than wrong pack
 - Threshold gating: pack must score above MIN_SCORE_THRESHOLD to win
 - Priority order: coding > decision > docs > editing > general (fallback)
 
 ### Firefox Compatibility
-- Firefox uses Manifest V2 — `background.scripts` array, not `service_worker`
-- Firefox uses `browser.*` API — build script handles `chrome.*` → `browser.*` transform
+- Firefox uses Manifest V2 - `background.scripts` array, not `service_worker`
+- Firefox uses `browser.*` API - build script handles `chrome.*` → `browser.*` transform
 - Firefox uses `browser_action` not `action`
 
 ---
@@ -195,11 +195,11 @@ The only reliable way to insert into ChatGPT's controlled React textarea:
 ## Version Management
 
 ### Files to Keep in Sync:
-1. `chrome/manifest.json` — "version" field
-2. `firefox/manifest.json` — "version" field
-3. `package.json` — "version" field
-4. `CHANGELOG.md` — Latest version section header
-5. `README.md` — Latest version in history section
+1. `chrome/manifest.json` - "version" field
+2. `firefox/manifest.json` - "version" field
+3. `package.json` - "version" field
+4. `CHANGELOG.md` - Latest version section header
+5. `README.md` - Latest version in history section
 
 **REMINDER: Do not update version unless user explicitly says to release a new version!**
 

@@ -9,7 +9,7 @@ Instant follow-up suggestions, right above the composer.
 
 Reprompt injects a small tray above the ChatGPT composer with 4–6 context-aware reply buttons. Click a button to insert the text. Shift+Click to insert and send immediately.
 
-The tray reads the conversation and selects the most relevant set of follow-ups — clarifications, edits, code requests, comparisons — so the next move is always one click away.
+The tray reads the conversation and selects the most relevant set of follow-ups - clarifications, edits, code requests, comparisons - so the next move is always one click away.
 
 ---
 
@@ -68,7 +68,7 @@ Most-used buttons surface toward the front over time.
 
 ### 0.1.0 (February 18, 2026)
 
-**Initial release — MVP scaffold**
+**Initial release - MVP scaffold**
 
 - Chrome + Firefox monorepo structure
 - Template packs: general, coding, docs, decision, editing

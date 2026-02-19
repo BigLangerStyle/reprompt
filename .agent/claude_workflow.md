@@ -34,7 +34,7 @@ If Claude modifies a file in any way:
 - Claude **MUST** return the complete, final version of that file
 - Claude **MUST NOT** provide diffs, snippets, or partial edits
 - Claude **MUST NOT** ask the user to manually apply changes
-- Claude **MUST NOT** present files from `build/` — always source files
+- Claude **MUST NOT** present files from `build/` - always source files
 
 If a file is too large to safely return in full:
 - Stop and say so explicitly
@@ -92,7 +92,7 @@ If a file is too large to safely return in full:
 
 ### Step 1: Task Description
 
-The release chat produces a task description as a **downloadable markdown file** — created with `create_file` and presented with `present_files`, not pasted inline.
+The release chat produces a task description as a **downloadable markdown file** - created with `create_file` and presented with `present_files`, not pasted inline.
 
 **Task description format:**
 
@@ -101,9 +101,9 @@ The release chat produces a task description as a **downloadable markdown file**
 
 This is the **feature implementation** chat for Reprompt.
 
-**Project:** Chrome + Firefox extension (monorepo). Shared source in src/, browser-specific manifests in chrome/ and firefox/. Build scripts in scripts/. No build step needed for Chrome dev — load unpacked from build/chrome/ after running npm run build:chrome.
+**Project:** Chrome + Firefox extension (monorepo). Shared source in src/, browser-specific manifests in chrome/ and firefox/. Build scripts in scripts/. No build step needed for Chrome dev - load unpacked from build/chrome/ after running npm run build:chrome.
 
-**Workflow rules:** `.agent/claude_workflow.md` (in uploaded files — read it first).
+**Workflow rules:** `.agent/claude_workflow.md` (in uploaded files - read it first).
 
 **What this chat does:**
 - Feature chat: Implement the task description below. Stay within uploaded files only.
@@ -261,7 +261,7 @@ reprompt/
 │   ├── build-chrome.js
 │   └── build-firefox.js
 ├── icons/
-├── build/                     (gitignored — never upload or present)
+├── build/                     (gitignored - never upload or present)
 │
 ├── .agent/
 │   ├── project-preferences.md
@@ -273,7 +273,7 @@ reprompt/
 └── README.md
 ```
 
-**Key rule:** Always present source files from `src/`, `chrome/`, `firefox/` — **never from `build/`**.
+**Key rule:** Always present source files from `src/`, `chrome/`, `firefox/` - **never from `build/`**.
 
 ---
 
@@ -309,7 +309,7 @@ This is the **[release orchestration | feature implementation]** chat for Reprom
 
 **Project:** Chrome + Firefox extension (monorepo). Shared source in src/, browser-specific manifests in chrome/ and firefox/. Build scripts in scripts/.
 
-**Workflow rules:** `.agent/claude_workflow.md` (in uploaded files — read it first).
+**Workflow rules:** `.agent/claude_workflow.md` (in uploaded files - read it first).
 
 **What this chat does:**
 - [Release chat: Define scope, produce task descriptions and file lists. No implementation.]
@@ -347,7 +347,7 @@ OpenAI updates ChatGPT without warning. If the tray stops appearing, check the t
 Direct `.value =` on ChatGPT's textarea is silently ignored by React. Always use the native value setter override in `src/utils/dom.js`.
 
 ### Firefox chrome.* → browser.* Transform
-The build script handles this automatically. Never manually write `browser.*` in src/ files — always use `chrome.*` and let the build script transform it for Firefox.
+The build script handles this automatically. Never manually write `browser.*` in src/ files - always use `chrome.*` and let the build script transform it for Firefox.
 
 ### Flat Zip Extraction
 Check your zip structure:
@@ -370,7 +370,7 @@ Always paste both the chat intro block AND the task description together at the 
 "Got them. Staying inside these files only. If I need anything else, I'll ask for that specific file."
 
 ### If User Uploads Full Zip
-"Let's not do the full zip — it can cause compaction. Instead, upload only these files: ..."
+"Let's not do the full zip - it can cause compaction. Instead, upload only these files: ..."
 
 ---
 
