@@ -13,14 +13,24 @@ The tray reads the conversation and selects the most relevant set of follow-ups 
 
 ---
 
-## Install (Developer Mode)
+## Install
 
-1. Clone or download this repo
-2. Open Chrome → `chrome://extensions`
-3. Enable **Developer Mode** (top right)
-4. Click **Load unpacked**
-5. Select the repo root folder (where `manifest.json` lives)
+### Chrome (Developer Mode)
+
+1. Clone this repo
+2. Run `npm run build:chrome`
+3. Open Chrome → `chrome://extensions`
+4. Enable **Developer Mode** (top right)
+5. Click **Load unpacked** → select `build/chrome/`
 6. Navigate to [chat.openai.com](https://chat.openai.com) or [chatgpt.com](https://chatgpt.com)
+
+### Firefox (Temporary)
+
+1. Clone this repo
+2. Run `npm run build:firefox`
+3. Open Firefox → `about:debugging` → **This Firefox**
+4. Click **Load Temporary Add-on** → select `build/firefox/manifest.json`
+5. Navigate to [chat.openai.com](https://chat.openai.com) or [chatgpt.com](https://chatgpt.com)
 
 ---
 
@@ -60,6 +70,7 @@ Most-used buttons surface toward the front over time.
 
 **Initial release — MVP scaffold**
 
+- Chrome + Firefox monorepo structure
 - Template packs: general, coding, docs, decision, editing
 - Heuristic keyword scoring engine
 - React-compatible text insert logic
@@ -72,19 +83,26 @@ Most-used buttons surface toward the front over time.
 
 ## Development
 
-No build step required. Edit source files, reload the extension in `chrome://extensions`.
-
 ```
 reprompt/
-├── manifest.json
-├── background.js
-├── content.js
-├── styles.css
-├── templates.js
-└── utils/
-    ├── dom.js
-    ├── heuristics.js
-    └── storage.js
+├── chrome/manifest.json       Chrome Manifest V3
+├── firefox/manifest.json      Firefox Manifest V2
+├── src/                       Shared source files
+│   ├── background.js
+│   ├── content.js
+│   ├── styles.css
+│   ├── templates.js
+│   └── utils/
+├── scripts/                   Build scripts
+│   ├── build-chrome.js
+│   └── build-firefox.js
+└── build/                     Generated (gitignored)
+```
+
+```bash
+npm run build:chrome    # → build/chrome/
+npm run build:firefox   # → build/firefox/
+npm run build:all       # both
 ```
 
 Agent workflow and preferences are in `.agent/`.

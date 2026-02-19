@@ -6,7 +6,9 @@ All notable changes to Reprompt will be documented in this file.
 
 ### Added
 
-- **Initial scaffold** — Full Manifest V3 Chrome extension structure
+- **Monorepo structure** — Shared source in `src/`, browser-specific manifests in `chrome/` and `firefox/`, build scripts in `scripts/`
+- **Chrome Manifest V3** + **Firefox Manifest V2** — dual browser support
+- **Build scripts** — `build-chrome.js` and `build-firefox.js` with automatic `chrome.*` → `browser.*` transform for Firefox
 - **Template packs** — 5 packs × 6 templates: general, coding, docs, decision, editing
 - **Heuristic engine** — Keyword scoring with threshold gating; falls back to general pack
 - **React-compatible insert logic** — Native value setter override + input event dispatch

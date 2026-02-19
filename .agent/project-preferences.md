@@ -11,36 +11,37 @@
 ### When Adding New Features
 
 #### ✅ CORRECT Approach:
-- Keep version at **0.1.0** in `manifest.json`
+- Keep version at **0.1.0** in both manifest files and `package.json`
 - Add feature to existing v0.1.0 sections in CHANGELOG.md and README.md
 - Keep the same date or update to current work date
 
 #### ❌ WRONG Approach:
 - Creating v0.1.1 or v0.2.0 sections
-- Incrementing version numbers in manifest.json
+- Incrementing version numbers in manifest files
 - Creating new CHANGELOG entries with new versions
 
 ### Current v0.1.0 MVP Roadmap
 
 **Completed:**
-- [x] Project scaffold and file structure
-- [x] Manifest V3 configuration
-- [x] `templates.js` — 5 packs × 6 templates
-- [x] `utils/heuristics.js` — keyword scoring engine
-- [x] `utils/dom.js` — React-compatible textarea detection + insert logic
-- [x] `utils/storage.js` — usage counts, pinned templates, last pack
-- [x] `background.js` — minimal service worker
-- [x] `content.js` — tray injection, MutationObserver, keyboard shortcuts
-- [x] `styles.css` — dark/light theme, collapsed/expanded states
+- [x] Monorepo structure (src/, chrome/, firefox/, scripts/)
+- [x] Chrome Manifest V3 + Firefox Manifest V2
+- [x] Build scripts (build-chrome.js, build-firefox.js)
+- [x] `src/templates.js` — 5 packs × 6 templates
+- [x] `src/utils/heuristics.js` — keyword scoring engine
+- [x] `src/utils/dom.js` — React-compatible textarea detection + insert logic
+- [x] `src/utils/storage.js` — usage counts, pinned templates, last pack
+- [x] `src/background.js` — minimal service worker
+- [x] `src/content.js` — tray injection, MutationObserver, keyboard shortcuts
+- [x] `src/styles.css` — dark/light theme, collapsed/expanded states
 
 **Still To Do (ALL PART OF v0.1.0):**
-- [ ] Placeholder icons (16px, 48px, 128px)
-- [ ] End-to-end testing on chat.openai.com and chatgpt.com
+- [ ] Real icons (16px, 48px, 128px)
+- [ ] End-to-end testing on chat.openai.com and chatgpt.com (Chrome)
+- [ ] End-to-end testing in Firefox
 - [ ] Selector resilience verification
 - [ ] Shift+Click send behavior verification
 
 **Explicit Non-Goals for v0.1.0:**
-- No Firefox support
 - No per-pack customization UI
 
 ---
@@ -63,7 +64,7 @@ After implementing any new feature or fixing bugs, you MUST update:
 User: "Fix the Shift+Click send behavior"
 
 Response after completion:
-1. Present content.js (updated code)
+1. Present src/content.js (updated code)
 2. Present CHANGELOG.md (fix added to v0.1.0 section)
 3. Present README.md (updated if user-facing)
 ```
@@ -87,13 +88,16 @@ unix2dos <filename> 2>/dev/null || sed -i 's/$/\r/' <filename>
 ```
 
 ### Git-Tracked Files in This Project:
-- `manifest.json`
-- `background.js`
-- `content.js`
-- `styles.css`
-- `templates.js`
-- `utils/*.js`
+- `chrome/manifest.json`
+- `firefox/manifest.json`
+- `src/*.js`
+- `src/utils/*.js`
+- `src/styles.css`
+- `scripts/*.js`
+- `package.json`
 - `*.md` files
+
+**Never convert:** `build/` contents (gitignored)
 
 ---
 
@@ -103,6 +107,7 @@ unix2dos <filename> 2>/dev/null || sed -i 's/$/\r/' <filename>
 - Provide diffs, snippets, or partial edits
 - Ask the user to manually apply changes
 - Silently truncate large files
+- Present files from `build/` — always present source files
 
 ### ✅ DO:
 - Present each file individually using `present_files`, one at a time
@@ -120,27 +125,46 @@ If a file is too large to safely return in full:
 ```
 reprompt/
 │
-├── manifest.json
-├── background.js
-├── content.js
-├── styles.css
-├── templates.js
-└── utils/
-    ├── dom.js
-    ├── heuristics.js
-    └── storage.js
-
-.agent/
-├── project-preferences.md
-└── claude_workflow.md
-
-CHANGELOG.md
-README.md
+├── chrome/
+│   └── manifest.json          (Manifest V3, Chrome)
+├── firefox/
+│   └── manifest.json          (Manifest V2, Firefox)
+├── src/
+│   ├── background.js
+│   ├── content.js
+│   ├── styles.css
+│   ├── templates.js
+│   └── utils/
+│       ├── dom.js
+│       ├── heuristics.js
+│       └── storage.js
+├── scripts/
+│   ├── build-chrome.js
+│   └── build-firefox.js
+├── icons/
+│   ├── icon16.png
+│   ├── icon48.png
+│   └── icon128.png
+├── build/                     (gitignored — never upload or present)
+│
+├── .agent/
+│   ├── project-preferences.md
+│   └── claude_workflow.md
+│
+├── .gitignore
+├── package.json
+├── CHANGELOG.md
+└── README.md
 ```
 
 ---
 
 ## Important Technical Notes
+
+### Build Process
+- `npm run build:chrome` — copies src/ + chrome/manifest.json → build/chrome/
+- `npm run build:firefox` — copies src/ + firefox/manifest.json → build/firefox/, transforms chrome.* → browser.*
+- Always present source files from `src/`, `chrome/`, `firefox/` — **never from `build/`**
 
 ### React Textarea Insert
 The only reliable way to insert into ChatGPT's controlled React textarea:
@@ -159,18 +183,21 @@ The only reliable way to insert into ChatGPT's controlled React textarea:
 - Threshold gating: pack must score above MIN_SCORE_THRESHOLD to win
 - Priority order: coding > decision > docs > editing > general (fallback)
 
-### No Build Step
-- Load unpacked directly from repo root
-- No transpilation, no bundling, no npm required for v0.1.0
+### Firefox Compatibility
+- Firefox uses Manifest V2 — `background.scripts` array, not `service_worker`
+- Firefox uses `browser.*` API — build script handles `chrome.*` → `browser.*` transform
+- Firefox uses `browser_action` not `action`
 
 ---
 
 ## Version Management
 
 ### Files to Keep in Sync:
-1. `manifest.json` — "version" field
-2. `CHANGELOG.md` — Latest version section header
-3. `README.md` — Latest version in history section
+1. `chrome/manifest.json` — "version" field
+2. `firefox/manifest.json` — "version" field
+3. `package.json` — "version" field
+4. `CHANGELOG.md` — Latest version section header
+5. `README.md` — Latest version in history section
 
 **REMINDER: Do not update version unless user explicitly says to release a new version!**
 

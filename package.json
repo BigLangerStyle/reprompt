@@ -1,0 +1,14 @@
+{
+  "name": "reprompt",
+  "version": "0.1.0",
+  "description": "Heuristic-driven quick reply tray for ChatGPT.",
+  "private": true,
+  "scripts": {
+    "build:chrome":  "node scripts/build-chrome.js",
+    "build:firefox": "node scripts/build-firefox.js",
+    "build:all":     "node scripts/build-chrome.js && node scripts/build-firefox.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "name": "Reprompt",
+  "version": "0.1.0",
+  "description": "Heuristic-driven quick reply tray for ChatGPT. Instant follow-up suggestions, right above the composer.",
+  "permissions": [
+    "storage",
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*"
+      ],
+      "js": [
+        "templates.js",
+        "utils/storage.js",
+        "utils/heuristics.js",
+        "utils/dom.js",
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "browser_action": {
+    "default_title": "Reprompt",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "reprompt@biglangerstyle",
+      "strict_min_version": "109.0"
+    }
+  }
+}
