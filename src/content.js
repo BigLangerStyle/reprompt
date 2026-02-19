@@ -19,6 +19,7 @@ const OBSERVER_ROOT  = document.body;
 let currentPack      = "default";
 let isCollapsed      = true;
 let injectDebounce   = null;
+let removingTray     = false;  // prevents observer from reacting to our own tray removal
 
 // ─── Tray Injection ──────────────────────────────────────────────────────────
 
@@ -208,8 +209,17 @@ function toggleTray() {
  */
 function startObserver() {
   const observer = new MutationObserver((mutations) => {
-    // Check if tray was removed
-    const trayGone = !document.getElementById(TRAY_ID);
+    // Ignore mutations we caused ourselves (tray insert/remove)
+    const selfMutation = mutations.every((m) =>
+      Array.from(m.addedNodes).concat(Array.from(m.removedNodes)).every((n) => {
+        if (n.nodeType !== 1) return true;
+        return n.id === TRAY_ID || n.closest?.(`#${TRAY_ID}`) !== null;
+      })
+    );
+    if (selfMutation) return;
+
+    // Check if tray was removed by ChatGPT (not by us)
+    const trayGone = !removingTray && !document.getElementById(TRAY_ID);
 
     // Check if a new assistant message appeared
     const newAssistantMessage = mutations.some((m) =>
@@ -226,8 +236,10 @@ function startObserver() {
       // Debounce to avoid spamming inject on rapid DOM changes
       clearTimeout(injectDebounce);
       injectDebounce = setTimeout(() => {
-        // Remove stale tray before re-injecting
+        // Remove stale tray, flagging so observer ignores this removal
+        removingTray = true;
         document.getElementById(TRAY_ID)?.remove();
+        removingTray = false;
         isCollapsed = true;
         injectTray();
       }, INJECT_DELAY);
