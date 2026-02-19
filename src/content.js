@@ -16,7 +16,7 @@ const OBSERVER_ROOT  = document.body;
 
 // ─── State ───────────────────────────────────────────────────────────────────
 
-let currentPack      = "general";
+let currentPack      = "default";
 let isCollapsed      = true;
 let injectDebounce   = null;
 
@@ -39,7 +39,7 @@ async function injectTray() {
   // Determine pack from context
   const assistantText = getLastAssistantMessage();
   const userInput     = textarea.value || textarea.innerText || "";
-  currentPack         = selectPack(assistantText, userInput);
+  currentPack         = detectMode(assistantText, userInput);
 
   // Persist last pack
   await saveLastPack(currentPack);
@@ -61,7 +61,7 @@ async function buildTray(packName) {
   const usageCounts = await getUsageCounts();
   const pinned      = await getPinned();
   const templates   = sortTemplates(
-    TEMPLATE_PACKS[packName] || TEMPLATE_PACKS.general,
+    TEMPLATE_PACKS[packName] || TEMPLATE_PACKS.default,
     usageCounts,
     pinned
   ).slice(0, MAX_BUTTONS);

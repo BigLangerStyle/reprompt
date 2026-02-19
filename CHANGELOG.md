@@ -10,8 +10,8 @@ All notable changes to Reprompt will be documented in this file.
 - **Chrome Manifest V3** + **Firefox Manifest V2** - dual browser support
 - **Build scripts** - `build-chrome.js` and `build-firefox.js` with automatic `chrome.*` → `browser.*` transform for Firefox
 - **Dev watch scripts** - `watch-chrome.js` (rebuilds on save) and `watch-firefox.js` (rebuilds + auto-reloads via web-ext)
-- **Template packs** - 5 packs × 6 templates: general, coding, docs, decision, editing
-- **Heuristic engine** - Keyword scoring with threshold gating; falls back to general pack
+- **Template packs** - 4 mode-mapped packs × 6 templates: code, long, typing, default
+- **Task mode detection** - Deterministic structural signal engine replacing keyword scoring; detects code blocks, response length, and textarea state; falls back to default (Exploration) pack
 - **React-compatible insert logic** - Native value setter override + input event dispatch
 - **MutationObserver** - Debounced re-injection when ChatGPT re-renders the composer
 - **Collapse/expand tray** - Pill state when inactive, horizontal button row when active
